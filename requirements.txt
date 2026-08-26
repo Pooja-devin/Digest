@@ -1,0 +1,6 @@
+streamlit
+google-genai
+feedparser
+python-dotenv
+pydantic
+httpx
