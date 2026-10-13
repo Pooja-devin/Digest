@@ -1,0 +1,7 @@
+streamlit
+google-genai
+chromadb
+feedparser
+pydantic
+python-dotenv
+httpx
