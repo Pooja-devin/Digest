@@ -2,9 +2,8 @@ name: Digest Auto Feed Sync
 
 on:
   schedule:
-    # Ovvoru 6 mani nerathukkum automatic-ah run aagum (00:00, 06:00, 12:00, 18:00 UTC)
     - cron: '0 */6 * * *'
-  workflow_dispatch: # Ungalukku eppo venumo appo GitHub dashboard-la irundhu manual-ah trigger pannikalam
+  workflow_dispatch:
 
 jobs:
   sync:
@@ -18,12 +17,11 @@ jobs:
         uses: actions/setup-python@v5
         with:
           python-version: '3.11'
-          cache: 'pip'
 
       - name: Install Dependencies
         run: |
           python -m pip install --upgrade pip
-          pip install -r requirements.txt
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
 
       - name: Run Scraper & AI Extractor
         env:
@@ -31,7 +29,7 @@ jobs:
         run: |
           python scripts/cron_sync.py
 
-      - name: Commit & Push Updated Database (if SQLite)
+      - name: Commit & Push Updated Database
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
